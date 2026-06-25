@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    command: gunicorn --bind 0.0.0.0:9697 FINAL_PROGECT_predict:app
+    ports:
+      - "9697:9697"
+
+  frontend:
+    build: .
+    command: streamlit run app_streamlit.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend

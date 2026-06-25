@@ -44,7 +44,7 @@ I uploaded the application to a live cloud server so anyone can use it online.
 * **API Connection:** I connected the Streamlit UI directly to the Flask backend to allow data exchange via JSON payloads.
 
 ### 3. Final Integration
-By connecting the backend and the hosting platform, the system achieved full stability. The entire architecture now runs smoothly under a dedicated space (`osama-group`).
+By connecting the backend and the hosting platform, the system achieved full stability. The entire architecture now runs smoothly under a dedicated space (`oussama-group`).
 
 ---
 

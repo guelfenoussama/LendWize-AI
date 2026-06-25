@@ -1,5 +1,14 @@
 # LendWise AI | End-to-End Loan Risk Prediction System
 
+
+<p align="center">
+  <img src="assets/image.png" width="900">
+</p>
+
+### Live Demo
+
+🔗 https://oussama-group-lendwise-ai.hf.space/
+
 ### Smart Loan Intelligence • Machine Learning • Cloud Deployment
 
 LendWise AI is an end-to-end Machine Learning system designed to evaluate loan applications using financial and applicant information.

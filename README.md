@@ -1,72 +1,206 @@
-# # Lendwise AI • Smart Loan Risk & DSCR Prediction System
+# LendWise AI | End-to-End Loan Risk Prediction System
 
-**Smart Loan Intelligence • Optimized for the Indian Banking Ecosystem using Real-World Financial Data**
+### Smart Loan Intelligence • Machine Learning • Cloud Deployment
 
-This repository contains an end-to-end Machine Learning system. The architecture processes customer financial profiles to predict loan default probabilities and calculate the Debt Service Coverage Ratio (DSCR). The project covers the full development cycle: from data preprocessing and model selection to containerization and cloud deployment.
+LendWise AI is an end-to-end Machine Learning system designed to evaluate loan applications using financial and applicant information.
 
----
-
-## Live Production Site
-The application is deployed and accessible in full-screen standalone mode here:
-[Lendwise AI Web App](https://oussama-group-lendwise-ai.hf.space)
+The project predicts loan approval probability, estimates financial risk, and calculates DSCR-related indicators through a complete ML pipeline extending from data preparation and model evaluation to Docker deployment and a live web application.
 
 ---
 
-## Interactive Test Cases
-To evaluate how the backend models and dashboard logic respond to different financial profiles, you can input these test cases on the live site:
+## Live Application
 
-* **Case A (Low-Risk Profile):** Input a high annual income relative to a low requested loan amount, backed by stable asset values. The system will compute a high DSCR and trigger a **"Healthy"** risk status (displayed in green).
-* **Case B (High-Risk Profile):** Input a low annual income with a maximum loan amount. The Flask backend will identify the risk threshold breach, flag the status as **"Declined"** with the calculated statistical confidence score, and trigger the internal system risk notification.
+The deployed application is publicly accessible through a live web interface.
+
+### Features
+
+* Loan approval prediction
+* Confidence score generation
+* Financial risk assessment
+* Asset portfolio evaluation
+* DSCR-related financial indicators
+* Interactive Streamlit dashboard
 
 ---
 
-## Technical Domain & Constraints (Indian Banking Sector)
-* **INR Currency Only:** The models were trained strictly on financial data from the Indian banking ecosystem.
-* **Operational Limits:** Features like annual income, asset valuation, and loan parameters are mapped to Indian Rupees (INR). Converting these inputs into USD breaks the underlying statistical boundaries and risk thresholds calculated during training.
+## Project Objective
+
+The objective of this project was not only to train machine learning models, but to build a complete production-ready system covering the full machine learning lifecycle:
+
+* Data preparation
+* Feature engineering
+* Model training
+* Model comparison
+* Performance evaluation
+* API development
+* Frontend integration
+* Docker containerization
+* Cloud deployment
 
 ---
 
-## Engineering Challenges & Solutions
+## Machine Learning Development
 
-Building and deploying this system required resolving several technical problems across the data and infrastructure layers.
+Multiple machine learning models were trained and evaluated for both classification and regression tasks.
 
-### 1. Model Configuration and Tuning
-During the initial training phase, the baseline models returned an AUC = 0.9.
+The final models were selected after comparing performance using:
 
-* **The Discovery:** While double-checking the features, I verified that this was not caused by data leakage. Instead, it was the result of natural **Bias Mitigation** within the dataset configuration.
-* **The Result:** To make sure the system works perfectly, I compared 4 machine learning models for classification and 4 machine learning models for regression, then selected the best performing ones for the final system.
+* ROC-AUC
+* Log Loss
+* Prediction consistency
+
+### Key Discovery
+
+During experimentation, several models achieved AUC scores close to **0.90**.
+
+Instead of accepting the results directly, I investigated the dataset to verify that the performance was not caused by data leakage.
+
+Feature importance analysis revealed that the **CIBIL Credit Score** contributed approximately **91%** of the predictive power.
+
+After additional validation and analysis, the results were determined to be caused by the natural predictive strength of the feature within the dataset rather than leakage.
+
+For detailed experiments, model comparisons, feature analysis, and evaluation results, see:
+
+```text
+my_notebook.ipynb
+```
+
+---
+
+## Technical Domain Constraints
+
+This project was trained on data from the Indian banking ecosystem.
+
+### Important Limitations
+
+* Currency assumptions are based on Indian Rupees (INR).
+* Income, asset valuation, and loan-related features follow the statistical distribution of the original dataset.
+* Converting inputs directly to other currencies such as USD may invalidate learned thresholds and risk boundaries.
+
+These constraints are intentionally preserved to maintain model reliability.
+
+---
+
+## Engineering Challenges
+
+### 1. Model Validation
+
+Several models achieved strong AUC scores.
+
+The challenge was determining whether the performance reflected genuine predictive ability or hidden leakage.
+
+This led to additional feature analysis, metric comparison, and validation procedures before selecting the final models.
 
 ### 2. Cloud Deployment
-I uploaded the application to a live cloud server so anyone can use it online.
 
-* **Server Setup:** I configured all the Python environment libraries to make the app run online.
-* **Custom CSS:** I used custom HTML and CSS to fix the UI design, remove the host borders, and change the look to match my group's branding.
-* **API Connection:** I connected the Streamlit UI directly to the Flask backend to allow data exchange via JSON payloads.
+The project was transformed from a local machine learning workflow into a publicly accessible application.
 
-### 3. Final Integration
-By connecting the backend and the hosting platform, the system achieved full stability. The entire architecture now runs smoothly under a dedicated space (`oussama-group`).
+Tasks included:
+
+* Environment configuration
+* Dependency management
+* Docker deployment
+* Cloud hosting
+
+### 3. Frontend Integration
+
+A customized Streamlit dashboard was connected directly to a Flask backend API.
+
+The interface was personalized with custom styling and branding to create a cleaner user experience.
 
 ---
 
 ## System Architecture
 
-The project uses two main parts that talk to each other using structured JSON payloads:
-* **Backend API (Flask Engine):** Deployed on port `9697`. It receives the customer data, sends it through the machine learning models, and outputs the final risk metrics.
-* **Frontend Dashboard (Streamlit UI):** Deployed on port `8501`. I used custom HTML5 and CSS3 to fix the cloud platform design and control the dashboard layout.
+### Backend Layer
+
+**Flask API**
+
+Responsibilities:
+
+* Receive user financial information
+* Process model inputs
+* Execute predictions
+* Return risk metrics
+
+### Frontend Layer
+
+**Streamlit Dashboard**
+
+Responsibilities:
+
+* User interaction
+* Data collection
+* Result visualization
+* Risk reporting
+
+Communication between both layers is handled through structured JSON requests.
 
 ---
 
-## Core Technical Features
+## Technology Stack
 
-* **UI Theme Toggle:** Custom CSS code automatically changes the dashboard colors and fonts to match the user's light or dark system theme.
-* **Data Validation:** The system safely accepts different financial inputs and handles errors if the values are unexpected.
-* **Direct Network Access:** The deployment is configured for fast global access without proxy delays or loading issues.
+### Machine Learning
+
+* Scikit-Learn
+* Pandas
+* NumPy
+
+### Backend
+
+* Flask
+
+### Frontend
+
+* Streamlit
+
+### Deployment
+
+* Docker
+* Hugging Face Spaces
+
+---
+
+## Repository Structure
+
+```text
+.
+├── train.py
+├── predict.py
+├── app_streamlit.py
+├── dockerfile
+├── docker-compose.yml
+├── best_classifier_model.bin
+├── best_regressor_model.bin
+├── my_notebook.ipynb
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Key Skills Demonstrated
+
+* Machine Learning
+* Feature Engineering
+* Model Evaluation
+* Feature Importance Analysis
+* Data Validation
+* Risk Prediction
+* API Development
+* Docker
+* Cloud Deployment
+* End-to-End ML Engineering
 
 ---
 
 ## Developer
 
-* **Oussama** (17 years old, Algeria 🇩🇿)
-* **Education:** Built using self-learning through the **Machine Learning Zoomcamp** course.
+**Oussama**
+17 Years Old | Algeria
 
-This project demonstrates skills in full-stack data engineering and machine learning: from analyzing data to deploying a live web application.
+Built through self-learning while studying Machine Learning and applying engineering concepts in a complete end-to-end project.
+
+This project demonstrates the journey from data analysis and model experimentation to a deployed machine learning application accessible through the web.
+
+

@@ -40,19 +40,20 @@ def predict():
         loan_amount = customer.get('_loan_amount', 0)
         income = customer.get('_income_annum', 1)
         
-        if expected_amount > loan_amount * 1.2:
-            expected_amount = loan_amount * 1.1
-        elif expected_amount < loan_amount * 0.7:
-            expected_amount = loan_amount * 0.8
-            
-        result['expected_amount'] = float(expected_amount)
+        if expected_amount > loan_amount:
+            expected_amount = loan_amount
+        # Calculate the expected loan range (+/- 5%)
+        upper_bound = round(expected_amount * 1.05, -3)
+        lower_bound = round(expected_amount * 0.95, -3)
+
+        if upper_bound > loan_amount:
+            upper_bound = loan_amount
+        result['expected_amount'] = float(round(expected_amount, -3))
         # DSCR Check:
         # If the user's income is more than the expected loan amount,
         # the status is 'Healthy'. If not, it is a 'Risk'.
         result['dscr_status'] = 'Healthy' if income > expected_amount else 'Risk'
-        # Calculate the expected loan range (+/- 5%)
-        upper_bound = round(expected_amount * 1.05, -3)
-        lower_bound = round(expected_amount * 0.95, -3)
+        
         result['expected_amount_range'] = f"${lower_bound:,.0f} - ${upper_bound:,.0f}"
     else:
         result['dscr_status'] = 'Rejected from Classifier'

@@ -192,7 +192,7 @@ if st.button("Browse Loan Insights ➔", use_container_width=True):
                 
                 m1, m2 = st.columns(2)
                 with m1:
-                    st.metric(label="Expected Amount", value=f"${res_data['expected_amount']:,.2f}")
+                    st.metric(label="Expected Amount", value=f"₹{res_data['expected_amount']:,.2f}")
                 with m2:
                     if "Healthy" in dscr_status or "Low" in dscr_status:
                         st.markdown(f"🟢 **Risk Assessment:** <span style='color:#007A64; font-weight:bold; font-size:1.2rem;'>{dscr_status}</span>", unsafe_allow_html=True)

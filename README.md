@@ -203,6 +203,17 @@ Communication between both layers is handled through structured JSON requests.
 
 ---
 
+##  How to Test & Run LendWize AI
+
+### Option 1: Live Interactive App
+Try the deployed application directly!
+
+### Option 2: Local Docker Container
+Run the containerized Streamlit dashboard locally:
+
+docker build -t lendwize-app .
+docker run -p 8501:8501 lendwize-app
+
 ## Developer
 
 **Oussama**
